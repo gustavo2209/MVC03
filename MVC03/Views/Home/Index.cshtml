@@ -1,0 +1,118 @@
+﻿<!-- TITULO DE PAGINA -->
+
+<div class="row mt-3">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="alert alert-primary">
+            <h4 class="text-center">
+                <i class="bi-emoji-sunglasses"></i> Lista de Amigos <i class="bi-emoji-sunglasses"></i>
+            </h4>
+        </div>
+    </div>
+    <div class="col-3"></div>
+</div>
+
+<!-- BOTÓN DE NUEVO -->
+<div class="row mt-3">
+    <div class="col-1"></div>
+    <div class="col-4">
+        <button type="button" class="btn btn-primary" onclick="amigosIns();">
+            <i class="bi-plus-square"></i> Añadir amigo
+        </button>
+    </div>
+    <div class="col-7"></div>
+</div>
+
+<!-- GRILLA DE DATOS -->
+<div class="row mt-1">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-primary">
+                <tr>
+                    <td>Nombre</td>
+                    <td>Correo</td>
+                    <td>Teléfono</td>
+                    <td>Dirección</td>
+                    <td colspan="3">Acciones</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var t in ViewBag.Lista)
+                {
+                <tr>
+                    <td id="nombre_@t.idamigo">@t.nombre</td>
+                    <td id="correo_@t.idamigo" class="text-end">@t.correo</td>
+                    <td id="telefono_@t.idamigo">@t.telefono</td>
+                    <td id="direccion_@t.idamigo">@t.direccion</td>
+                    <td style="width:20px">
+                        <button type="button" class="btn btn-danger" onclick="amigosDel('@t.idamigo')">
+                            <i class="bi-trash"></i>
+                        </button>
+                    </td>
+                    <td style="width:20px">
+                        <button type="button" class="btn btn-success" onclick="amigosUpd('@t.idamigo')">
+                            <i class="bi-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<!-- DIALOGO AMIGOS -->
+
+<div id="dlg_amigos" class="modal fade show" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header" style="background-color: #d3e9fa">
+                    <h5 id="dlg_amigos_title" class="modal-title">Nuevo Amigo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="tbl_amigos_accion" />
+                    <input type="hidden" id="tbl_amigos_idamigo" />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="tbl_amigos_titulo">Nombre</label>
+                            <input type="text" class="form-control" id="tbl_amigos_nombre" placeholder="ingrese nombre de amigo">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 col-lg-8">
+                            <label for="tbl_amigos_tipo">Correo</label>
+                            <input type="text" class="form-control" id="tbl_amigos_correo" placeholder="ingrese correo">
+                        </div>
+                        <div class="col-md-12 col-lg-4">
+                            <label for="tbl_tutoriales_precio">Teléfono</label>
+                            <input type="text" class="form-control text-end" id="tbl_amigos_telefono" placeholder="ingrese teléfono">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 col-lg-8">
+                            <label for="tbl_amigos_tipo">Dirección</label>
+                            <input type="text" class="form-control" id="tbl_amigos_direccion" placeholder="ingrese direccion">
+                        </div>
+                    </div>
+
+                    <div id="dlg_amigos_errores" style="margin: 16px 30px;color: #900"></div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="amigosInsUpd();" style="width: 120px;margin-right: 12px">Guardar</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="width: 120px">Cancelar</button>
+                    </div>
+</form>
+        </div>
+    </div>
+</div>
